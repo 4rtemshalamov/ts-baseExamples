@@ -16,7 +16,7 @@
 // export default App;
 // todo типизация функ компонентов
 
-import React, {Component} from "react";
+import React, {Component, useReducer, useRef, useState} from "react";
 import ReactDOM from 'react-dom'
 // type CounterState = {
 //      count: number
@@ -240,63 +240,107 @@ import ReactDOM from 'react-dom'
 //     }
 // }
 //
-// // todo типизация портала
-interface IContext {
-    isAuth: boolean,
-    toggleAuth: () => void
-}
+// // todo типизация портала и контекста
+// interface IContext {
+//     isAuth: boolean,
+//     toggleAuth: () => void
+// }
+//
+// const AuthContext = React.createContext<IContext>({
+//     isAuth: false,
+//     toggleAuth: () => {
+//     }
+// })
+//
+// class Login extends Component {
+//     static contextType = AuthContext
+//     context!: React.ContextType<typeof AuthContext>
+//
+//     render() {
+//         const {toggleAuth, isAuth} = this.context
+//
+//         return (
+//             <button onClick={toggleAuth}>
+//                 {!isAuth ? 'Login' : 'Logout'}
+//             </button>
+//         )
+//     }
+// }
+//
+// const Profile:React.FC = () => (
+//     <AuthContext.Consumer>
+//         {({isAuth}) => (
+//             <h1>{!isAuth ? 'Please log in' : "You are logged in"}</h1>
+//         )}
+//     </AuthContext.Consumer>
+// )
+//
+// class Context extends Component<{}, { isAuth: Boolean }> {
+//     readonly state = {
+//         isAuth: false
+//     }
+//
+//     toggleAuth = () => {
+//         this.setState(({isAuth}) => ({
+//             isAuth: !isAuth
+//         }))
+//     }
+//
+//     render() {
+//         const {isAuth} = this.state
+//         const context: IContext = {isAuth, toggleAuth: this.toggleAuth}
+//         return (
+//             <AuthContext.Provider value={context}>
+//                 <Login/>
+//                 <Profile/>
+//             </AuthContext.Provider>
+//         )
+//     }
+// }
 
-const AuthContext = React.createContext<IContext>({
-    isAuth: false,
-    toggleAuth: () => {
-    }
-})
 
-class Login extends Component {
-    static contextType = AuthContext
+// todo типизация хуков
+//
+//
+// const [value, setValue] = useState(0)
+//
+// const [value, setValue] = useState<number| undefined>(undefined)
+// const [value, setValue] = useState<Array<number>>([])
+//
+// interface IUser {
+//     name: string
+//     age?: number
+// }
+//
+// const [value, setValue] = useState<IUser>({name: "Art"})
 
-    render() {
-        const {toggleAuth, isAuth} = this.context
+// todo useRef
 
-        return (
-            <button onClick={toggleAuth}>
-                {!isAuth ? 'Login' : 'Logout'}
-            </button>
-        )
-    }
-}
+const ref1 = useRef<HTMLElement>(null!)
+const ref2 = useRef<HTMLElement | null>(null)
 
-const Profile:React.FC = () => (
-    <AuthContext.Consumer>
-        {({isAuth}) => (
-            <h1>{!isAuth ? 'Please log in' : "You are logged in"}</h1>
-        )}
-    </AuthContext.Consumer>
-)
 
-class Context extends Component<{}, { isAuth: Boolean }> {
-    readonly state = {
-        isAuth: false
-    }
+//todo useReducer
 
-    toggleAuth = () => {
-        this.setState(({isAuth}) => ({
-            isAuth: !isAuth
-        }))
-    }
+// interface State {count: number}
+//
+// type Action = {type: 'increment' | 'decrement'}
+//
+// const counterReducer = ({ count }: State, {type}: Action) => {
+//     switch (type) {
+//         case "increment": return {count: count + 1 }
+//         case "decrement": return {count: count - 1 }
+//         default: return {}
+//     }
+// }
+//
+// const [state, dispatch] = useReducer(counterReducer, {count: 0})
+// dispatch({type: 'increment'})
+// dispatch({type: 'decrement'})
 
-    render() {
-        const {isAuth} = this.state
-        const context: IContext = {isAuth, toggleAuth: this.toggleAuth}
-        return (
-            <AuthContext.Provider value={context}>
-                <Login/>
-                <Profile/>
-            </AuthContext.Provider>
-        )
-    }
-}
 
-const App = () => <Context/>
+// todo useCallback & useMemo
+
+// const App = () => <Context/>
 
 export default App
